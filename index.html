@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContentAgent – Instagram & Facebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">ContentAgent</span>
+      </div>
+      <div class="platform-switcher">
+        <button class="plat-btn active" data-plat="instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </button>
+        <button class="plat-btn" data-plat="facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ══════════════════════════════════════ INSTAGRAM ══ -->
+    <div id="plat-instagram" class="platform-panel active">
+
+      <section class="niche-section">
+        <p class="section-label">Nische wählen</p>
+        <div class="niche-grid">
+          <button class="niche-btn active" data-niche="abnehmen" data-plat="instagram">
+            <span class="niche-emoji">🥗</span>
+            <span class="niche-name">Abnehmen</span>
+            <span class="niche-sub">Gesund & nachhaltig</span>
+          </button>
+          <button class="niche-btn" data-niche="wechseljahre" data-plat="instagram">
+            <span class="niche-emoji">🌸</span>
+            <span class="niche-name">Wechseljahre</span>
+            <span class="niche-sub">Hormone & Wohlbefinden</span>
+          </button>
+          <button class="niche-btn" data-niche="schlaf" data-plat="instagram">
+            <span class="niche-emoji">🌙</span>
+            <span class="niche-name">Besser schlafen</span>
+            <span class="niche-sub">Schlafhygiene & Rituale</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="modules-section">
+        <div class="module-tabs">
+          <button class="mod-tab active" data-module="ig-visual">Bild + Post</button>
+          <button class="mod-tab" data-module="ig-caption">Caption & Hashtags</button>
+          <button class="mod-tab" data-module="ig-story">Story-Sequenz</button>
+          <button class="mod-tab" data-module="ig-plan">4-Wochen-Plan</button>
+        </div>
+
+        <!-- IG BILD + POST -->
+        <div class="module-panel active" id="panel-ig-visual">
+          <div class="form-grid">
+            <div class="field full"><label>Thema des Posts</label><input type="text" id="ig-v-topic" placeholder="z.B. 5 Tipps gegen Heißhunger" /></div>
+            <div class="field"><label>Format</label><select id="ig-v-format"><option value="Feed-Post (1:1)">Feed-Post</option><option value="Carousel (4:5)">Carousel</option><option value="Reel Cover">Reel Cover</option></select></div>
+            <div class="field"><label>Bildstil</label><select id="ig-v-style"><option value="hell, clean, minimalistisch">Clean & Hell</option><option value="warm, natürlich, authentisch">Warm & Natürlich</option><option value="dunkel, elegant, premium">Dunkel & Premium</option><option value="pastellfarben, weich, feminin">Pastell & Feminin</option></select></div>
+            <div class="field full"><label>Markenfarbe <span class="optional">(optional)</span></label><input type="text" id="ig-v-color" placeholder="z.B. Lila, Mint, Rose oder #FF6B6B" /></div>
+          </div>
+          <button class="gen-btn" id="btn-ig-visual"><span class="btn-text">Bild + Post + Caption generieren</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-ig-visual"><span class="spinner"></span><span class="ld-text">Generiere...</span></div>
+          <div class="visual-result" id="ig-visual-result">
+            <div class="preview-grid">
+              <div class="preview-card">
+                <div class="preview-label">Feed-Vorschau (1:1)</div>
+                <canvas id="ig-canvas-feed" width="400" height="400"></canvas>
+                <div class="preview-actions">
+                  <button class="action-btn" onclick="downloadCanvas('ig-canvas-feed','ig-feed.png')">↓ Bild laden</button>
+                  <button class="action-btn" onclick="copyEl('ig-feed-cap-preview')">Text kopieren</button>
+                </div>
+                <div class="preview-text" id="ig-feed-cap-preview"></div>
+                <div class="preview-tags" id="ig-feed-ht-preview"></div>
+              </div>
+              <div class="preview-card">
+                <div class="preview-label">Story-Vorschau (9:16)</div>
+                <canvas id="ig-canvas-story" width="225" height="400"></canvas>
+                <div class="preview-actions">
+                  <button class="action-btn" onclick="downloadCanvas('ig-canvas-story','ig-story.png')">↓ Bild laden</button>
+                  <button class="action-btn" onclick="copyEl('ig-story-cap-preview')">Text kopieren</button>
+                </div>
+                <div class="preview-text" id="ig-story-cap-preview"></div>
+              </div>
+            </div>
+            <div class="result-block"><div class="result-label">Vollständiger Post-Text</div><div class="result-text" id="ig-v-fulltext"></div><button class="copy-btn" onclick="doCopy('ig-v-fulltext',this)">Kopieren</button></div>
+            <div class="tip-box" id="ig-v-tip"></div>
+          </div>
+        </div>
+
+        <!-- IG CAPTION -->
+        <div class="module-panel" id="panel-ig-caption">
+          <div class="form-grid">
+            <div class="field full"><label>Was zeigt dein Bild / Video?</label><textarea id="ig-cap-desc" placeholder="z.B. Ich zeige mein gesundes Mittagessen mit Quinoa..."></textarea></div>
+            <div class="field"><label>Call-to-Action</label><select id="ig-cap-cta"><option>Schreib mir in die Kommentare</option><option>Speichere diesen Post</option><option>Schick mir eine DM</option><option>Klick auf den Link in Bio</option><option>Teile diesen Post</option></select></div>
+            <div class="field"><label>Anzahl Hashtags</label><select id="ig-cap-ht"><option value="10">10</option><option value="20" selected>20</option><option value="30">30</option></select></div>
+          </div>
+          <button class="gen-btn" id="btn-ig-cap"><span class="btn-text">Caption & Hashtags generieren</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-ig-cap"><span class="spinner"></span><span class="ld-text">Generiere Caption...</span></div>
+          <div class="result-block hidden" id="ig-res-cap"><div class="result-label">Caption & Hashtags</div><div class="result-text" id="ig-res-cap-text"></div><button class="copy-btn" onclick="doCopy('ig-res-cap-text',this)">Kopieren</button></div>
+        </div>
+
+        <!-- IG STORY -->
+        <div class="module-panel" id="panel-ig-story">
+          <div class="form-grid">
+            <div class="field full"><label>Thema der Story-Sequenz</label><input type="text" id="ig-st-topic" placeholder="z.B. Mein Morgen-Ritual für besseren Schlaf" /></div>
+            <div class="field"><label>Anzahl Stories</label><select id="ig-st-count"><option value="3">3 Stories</option><option value="5" selected>5 Stories</option><option value="7">7 Stories</option></select></div>
+            <div class="field"><label>Bildstil</label><select id="ig-st-style"><option value="hell, clean, minimalistisch">Clean & Hell</option><option value="warm, natürlich">Warm & Natürlich</option><option value="pastellfarben, feminin">Pastell</option><option value="dunkel, elegant">Dunkel & Premium</option></select></div>
+          </div>
+          <button class="gen-btn" id="btn-ig-st"><span class="btn-text">Story-Sequenz erstellen</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-ig-st"><span class="spinner"></span><span class="ld-text">Generiere Story-Sequenz...</span></div>
+          <div id="ig-story-result" class="story-result hidden"></div>
+        </div>
+
+        <!-- IG PLAN -->
+        <div class="module-panel" id="panel-ig-plan">
+          <div class="form-grid">
+            <div class="field"><label>Posts pro Woche</label><select id="ig-pl-freq"><option>3x pro Woche</option><option selected>5x pro Woche</option><option>täglich</option></select></div>
+            <div class="field"><label>Aktuelles Ziel</label><input type="text" id="ig-pl-goal" placeholder="z.B. E-Mail-Liste aufbauen" /></div>
+          </div>
+          <button class="gen-btn" id="btn-ig-pl"><span class="btn-text">4-Wochen-Plan erstellen</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-ig-pl"><span class="spinner"></span><span class="ld-text">Erstelle Plan...</span></div>
+          <div class="result-block hidden" id="ig-res-plan"><div class="result-label">4-Wochen Redaktionsplan</div><div class="result-text" id="ig-res-plan-text"></div><button class="copy-btn" onclick="doCopy('ig-res-plan-text',this)">Kopieren</button></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════ FACEBOOK ══ -->
+    <div id="plat-facebook" class="platform-panel">
+
+      <section class="niche-section">
+        <p class="section-label">Thema wählen</p>
+        <div class="niche-grid">
+          <button class="niche-btn fb-btn active" data-niche="oele" data-plat="facebook">
+            <span class="niche-emoji">🌿</span>
+            <span class="niche-name">Ätherische Öle</span>
+            <span class="niche-sub">Aromatherapie & Wellness</span>
+          </button>
+          <button class="niche-btn fb-btn" data-niche="zellen" data-plat="facebook">
+            <span class="niche-emoji">✨</span>
+            <span class="niche-name">Zellerneuerung</span>
+            <span class="niche-sub">Regeneration & Vitalität</span>
+          </button>
+          <button class="niche-btn fb-btn" data-niche="oele-zellen" data-plat="facebook">
+            <span class="niche-emoji">🌱</span>
+            <span class="niche-name">Öle & Zellen kombiniert</span>
+            <span class="niche-sub">Ganzheitliche Gesundheit</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="modules-section fb-modules">
+        <div class="module-tabs">
+          <button class="mod-tab active" data-module="fb-profil">Profil-Post</button>
+          <button class="mod-tab" data-module="fb-story">Story</button>
+          <button class="mod-tab" data-module="fb-gruppe">Gruppe</button>
+          <button class="mod-tab" data-module="fb-ideen">Post-Ideen</button>
+          <button class="mod-tab" data-module="fb-plan">Monatsplan</button>
+        </div>
+
+        <!-- FB PROFIL-POST -->
+        <div class="module-panel active" id="panel-fb-profil">
+          <div class="platform-badge fb-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook Profil & Seite
+          </div>
+          <div class="form-grid">
+            <div class="field full"><label>Thema / Anlass</label><input type="text" id="fb-p-topic" placeholder="z.B. Lavendel für besseren Schlaf, Zellerneuerung mit Ölen" /></div>
+            <div class="field"><label>Post-Format</label><select id="fb-p-format"><option value="informativer Beitrag">Informativer Beitrag</option><option value="persönliche Geschichte">Persönliche Geschichte</option><option value="Tipp des Tages">Tipp des Tages</option><option value="Frage an die Community">Frage an Community</option><option value="Produkt vorstellen">Produkt vorstellen</option><option value="Erfahrungsbericht">Erfahrungsbericht</option></select></div>
+            <div class="field"><label>Ton</label><select id="fb-p-tone"><option value="herzlich, persönlich">Herzlich & Persönlich</option><option value="informativ, sachlich">Informativ & Sachlich</option><option value="motivierend, inspirierend">Motivierend</option><option value="storytelling, emotional">Storytelling</option></select></div>
+            <div class="field full"><label>Bildstil</label><select id="fb-p-style"><option value="natürlich, botanisch, warm, grüntöne">Natürlich & Botanisch</option><option value="hell, clean, minimalistisch">Clean & Hell</option><option value="warm, erdtöne, organisch">Warm & Erdtöne</option><option value="pastellfarben, sanft, feminin">Pastell & Sanft</option></select></div>
+          </div>
+          <button class="gen-btn" id="btn-fb-profil"><span class="btn-text">Facebook-Post + Bild generieren</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-fb-profil"><span class="spinner"></span><span class="ld-text">Generiere Facebook-Post...</span></div>
+          <div class="visual-result" id="fb-profil-result">
+            <div class="preview-grid">
+              <div class="preview-card">
+                <div class="preview-label">Post-Bild Vorschau (1.91:1)</div>
+                <canvas id="fb-canvas-post" width="400" height="210"></canvas>
+                <div class="preview-actions">
+                  <button class="action-btn" onclick="downloadCanvas('fb-canvas-post','fb-post.png')">↓ Bild laden</button>
+                </div>
+              </div>
+              <div class="preview-card">
+                <div class="preview-label">Cover-Variante (16:9)</div>
+                <canvas id="fb-canvas-cover" width="400" height="225"></canvas>
+                <div class="preview-actions">
+                  <button class="action-btn" onclick="downloadCanvas('fb-canvas-cover','fb-cover.png')">↓ Bild laden</button>
+                </div>
+              </div>
+            </div>
+            <div class="result-block"><div class="result-label">Facebook Post-Text</div><div class="result-text" id="fb-post-text-preview"></div><button class="copy-btn" onclick="doCopy('fb-post-text-preview',this)">Kopieren</button></div>
+            <div class="tip-box" id="fb-profil-tip"></div>
+          </div>
+        </div>
+
+        <!-- FB STORY -->
+        <div class="module-panel" id="panel-fb-story">
+          <div class="platform-badge fb-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook Story (24h)
+          </div>
+          <div class="form-grid">
+            <div class="field full"><label>Thema der Story-Sequenz</label><input type="text" id="fb-st-topic" placeholder="z.B. 3 Öle für mehr Energie am Morgen" /></div>
+            <div class="field"><label>Anzahl Stories</label><select id="fb-st-count"><option value="3">3 Stories</option><option value="5" selected>5 Stories</option><option value="7">7 Stories</option></select></div>
+            <div class="field"><label>Bildstil</label><select id="fb-st-style"><option value="natürlich, botanisch, warm, grüntöne">Natürlich & Botanisch</option><option value="hell, clean">Clean & Hell</option><option value="warm, erdtöne">Warm & Erdtöne</option><option value="pastellfarben, sanft">Pastell & Sanft</option></select></div>
+          </div>
+          <button class="gen-btn" id="btn-fb-story"><span class="btn-text">Facebook Story-Sequenz erstellen</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-fb-story"><span class="spinner"></span><span class="ld-text">Generiere Facebook Stories...</span></div>
+          <div id="fb-story-result" class="story-result hidden"></div>
+        </div>
+
+        <!-- FB GRUPPE -->
+        <div class="module-panel" id="panel-fb-gruppe">
+          <div class="platform-badge fb-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Facebook Gruppe
+          </div>
+          <div class="form-grid">
+            <div class="field full"><label>Thema / Anlass</label><input type="text" id="fb-g-topic" placeholder="z.B. Welches Öl hilft euch bei Kopfschmerzen?" /></div>
+            <div class="field"><label>Post-Typ</label><select id="fb-g-type"><option value="Diskussionsfrage">Diskussionsfrage</option><option value="Wissens-Post mit Mehrwert">Wissens-Post</option><option value="Umfrage-Anregung">Umfrage-Anregung</option><option value="Erfahrungsaustausch anstoßen">Erfahrungsaustausch</option><option value="Tipp teilen">Tipp teilen</option><option value="Challenge starten">Challenge starten</option><option value="Willkommens-Post für neue Mitglieder">Willkommens-Post</option></select></div>
+            <div class="field"><label>Gruppenname <span class="optional">(optional)</span></label><input type="text" id="fb-g-name" placeholder="z.B. Ätherische Öle & Wellness" /></div>
+            <div class="field full"><label>Ziel des Posts</label><input type="text" id="fb-g-goal" placeholder="z.B. Diskussion anstoßen, neue Mitglieder willkommen heißen" /></div>
+          </div>
+          <button class="gen-btn" id="btn-fb-gruppe"><span class="btn-text">Gruppen-Post generieren</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-fb-gruppe"><span class="spinner"></span><span class="ld-text">Generiere Gruppen-Post...</span></div>
+          <div class="result-block hidden" id="fb-res-gruppe"><div class="result-label">Facebook Gruppen-Post</div><div class="result-text" id="fb-res-gruppe-text"></div><button class="copy-btn" onclick="doCopy('fb-res-gruppe-text',this)">Kopieren</button></div>
+        </div>
+
+        <!-- FB POST-IDEEN -->
+        <div class="module-panel" id="panel-fb-ideen">
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;">Klicke eine Idee an und erhalte sofort einen fertigen Facebook-Post:</p>
+          <div class="idea-grid" id="fb-idea-grid"></div>
+          <div class="loading" id="ld-fb-ideen"><span class="spinner"></span><span class="ld-text">Generiere Post...</span></div>
+          <div class="result-block hidden" id="fb-res-ideen"><div class="result-label" id="fb-res-ideen-label">Post</div><div class="result-text" id="fb-res-ideen-text"></div><button class="copy-btn" onclick="doCopy('fb-res-ideen-text',this)">Kopieren</button></div>
+        </div>
+
+        <!-- FB MONATSPLAN -->
+        <div class="module-panel" id="panel-fb-plan">
+          <div class="form-grid">
+            <div class="field"><label>Posts pro Woche</label><select id="fb-pl-freq"><option>3x pro Woche</option><option selected>5x pro Woche</option><option>täglich</option></select></div>
+            <div class="field"><label>Kanäle</label><select id="fb-pl-channels"><option value="Profil + Gruppe">Profil + Gruppe</option><option value="nur Profil/Seite">Nur Profil/Seite</option><option value="nur Gruppe">Nur Gruppe</option><option value="Profil + Gruppe + Story">Profil + Gruppe + Story</option></select></div>
+            <div class="field full"><label>Ziel des Monats</label><input type="text" id="fb-pl-goal" placeholder="z.B. Gruppe auf 500 Mitglieder wachsen lassen" /></div>
+          </div>
+          <button class="gen-btn" id="btn-fb-plan"><span class="btn-text">Facebook-Monatsplan erstellen</span><span class="btn-arrow">→</span></button>
+          <div class="loading" id="ld-fb-plan"><span class="spinner"></span><span class="ld-text">Erstelle Monatsplan...</span></div>
+          <div class="result-block hidden" id="fb-res-plan"><div class="result-label">Facebook Monatsplan</div><div class="result-text" id="fb-res-plan-text"></div><button class="copy-btn" onclick="doCopy('fb-res-plan-text',this)">Kopieren</button></div>
+        </div>
+
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>Powered by Claude AI · ContentAgent</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
